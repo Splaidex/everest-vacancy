@@ -1059,22 +1059,6 @@
         });
     }
 
-    function sendToEmail(payload) {
-      return fetch('https://formsubmit.co/ajax/splaidex.trade@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (!(data.success === 'true' || data.success === true)) throw new Error('FormSubmit fail');
-          return data;
-        });
-    }
-
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -1087,29 +1071,13 @@
       btn.textContent = 'Надсилаємо…';
       btn.disabled = true;
 
-      const payload = {
-        "Ім'я": name,
-        "Телефон": phone,
-        "Про себе": msg || '—',
-        "_subject": "Нова заявка — Помічник керівника | Еверест-Тер",
-        "_template": "table"
-      };
-
-      // Шлём в Telegram и на email параллельно. Успеха хотя бы одного канала
-      // достаточно, чтобы показать пользователю "успіх" и не потерять заявку.
-      const results = await Promise.allSettled([
-        sendToTelegram(name, phone, msg),
-        sendToEmail(payload)
-      ]);
-
-      const ok = results.some(r => r.status === 'fulfilled');
-
-      if (ok) {
+      try {
+        await sendToTelegram(name, phone, msg);
         form.style.display = 'none';
         box.classList.add('show');
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        console.error('Заявка не надіслана:', results);
+      } catch (err) {
+        console.error('Заявка не надіслана:', err);
         btn.textContent = 'Помилка — спробуй ще раз';
         btn.disabled = false;
       }
