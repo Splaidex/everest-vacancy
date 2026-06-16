@@ -1043,10 +1043,14 @@
         `📞 Телефон: ${phone}\n` +
         `💬 Про себе: ${msg || '—'}`;
 
-      return fetch(`https://api.telegram.org/bot$8644274101:AAGON9byPlhSsXHHzh1X4xE4lFjAqoU6RD8/sendMessage`, {
+      // Без явного Content-Type браузер сам поставит application/x-www-form-urlencoded —
+      // это "простой" запрос, без CORS preflight. С JSON + Content-Type вручную
+      // Telegram у некоторых отдаёт ошибку на preflight (как было у тебя в консоли).
+      const params = new URLSearchParams({ chat_id: TELEGRAM_CHAT_ID, text });
+
+      return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: 6463026037, text })
+        body: params
       })
         .then(res => res.json())
         .then(data => {
