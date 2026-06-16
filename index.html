@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Помічник керівника в Еверест-Тер — повністю дистанційна, 19 000–25 000 грн, кар'єрне зростання без стелі.">
+    content="Помічник керівника в Еверест-Тер — повна дистанційна, 19 000–25 000 грн, кар'єрне зростання без стелі.">
   <title>Помічник керівника | Еверест-Тер</title>
   <!-- Meta Pixel Code -->
   <script>
@@ -819,7 +819,7 @@
       </div>
 
       <div class="hero-pills">
-        <div class="pill">🏠 Повністю дистанційна</div>
+        <div class="pill">🏠 Повна дистанційна</div>
         <div class="pill">⏱ Повна зайнятість</div>
         <div class="pill">✅ Без досвіду</div>
       </div>
@@ -868,7 +868,7 @@
         <div class="c-step s2">
           <div class="c-num">2</div>
           <div>
-            <div class="c-title">Спеціаліст</div>
+            <div class="c-title">Керівник</div>
             <div class="c-desc">Самостійні задачі, більша відповідальність — і вищий дохід</div>
           </div>
         </div>
@@ -897,22 +897,22 @@
         <div class="b-card">
           <div class="b-ico">📈</div>
           <div class="b-title">Дохід від результату</div>
-          <div class="b-desc">Більше результатів — більше шансів на підвищення. Просто і чесно</div>
+          <div class="b-desc">Більше результатів — більше шансів на підвищення. Просто і чесно.</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🏠</div>
-          <div class="b-title">Повністю дистанційна</div>
-          <div class="b-desc">Працюєте з дому. Головне - результат, а не офіс</div>
+          <div class="b-title">Повна дистанційна</div>
+          <div class="b-desc">Працюєш звідки зручно. Головне — результат, не офіс.</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🤝</div>
           <div class="b-title">Команда підтримує</div>
-          <div class="b-desc">Не будеш один на один із задачами — є хто допоможе</div>
+          <div class="b-desc">Не будеш один на один із задачами — є хто допоможе.</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🚀</div>
           <div class="b-title">Без досвіду</div>
-          <div class="b-desc">Немає досвіду у схожій сфері? Все навчимо. Головне мати бажання</div>
+          <div class="b-desc">Важливе бажання вчитися, а не рядки у резюме.</div>
         </div>
       </div>
     </div>
@@ -983,10 +983,6 @@
           <div class="tr-ico">🧠</div>
           <div class="tr-txt">Вміння швидко знаходити потрібну інформацію</div>
         </div>
-        <div class="tr-item">
-          <div class="tr-ico">🏅</div>
-          <div class="tr-txt">Загальний досвід роботи від 1 року</div>
-        </div>
       </div>
     </div>
   </section>
@@ -1047,10 +1043,10 @@
         `📞 Телефон: ${phone}\n` +
         `💬 Про себе: ${msg || '—'}`;
 
-      return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      return fetch(`https://api.telegram.org/bot$8644274101:AAGON9byPlhSsXHHzh1X4xE4lFjAqoU6RD8/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text })
+        body: JSON.stringify({ chat_id: 6463026037, text })
       })
         .then(res => res.json())
         .then(data => {
