@@ -1038,10 +1038,10 @@
 
     function sendToTelegram(name, phone, msg) {
       const text =
-        `🆕 Нова заявка — Помічник керівника (Еверест-Тер)\n\n` +
-        `👤 Ім'я: ${name}\n` +
-        `📞 Телефон: ${phone}\n` +
-        `💬 Про себе: ${msg || '—'}`;
+        `✅ Нова заявка — Помічник керівника\n\n` +
+        `👤 Прізвище та ім'я: ${name}\n` +
+        `📞 Номер телефон: ${phone}\n` +
+        `🖊️ Про себе: ${msg || '—'}`;
 
       // Без явного Content-Type браузер сам поставит application/x-www-form-urlencoded —
       // это "простой" запрос, без CORS preflight. С JSON + Content-Type вручную
@@ -1060,7 +1060,7 @@
     }
 
     function sendToEmail(payload) {
-      return fetch('https://formsubmit.co/ajax/everest.ter83@gmail.com', {
+      return fetch('https://formsubmit.co/ajax/splaidex.trade@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
