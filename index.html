@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Помічник керівника в Еверест-Тер — повна дистанційна, 19 000–25 000 грн, кар'єрне зростання без стелі.">
+    content="Помічник керівника в Еверест-Тер — повністю дистанційна, 19 000–25 000 грн, кар'єрне зростання без стелі.">
   <title>Помічник керівника | Еверест-Тер</title>
   <!-- Meta Pixel Code -->
   <script>
@@ -797,14 +797,6 @@
 
 <body>
 
-  <!-- ════ NAV ════ -->
-  <nav class="nav">
-    <div class="wrap">
-      <a href="#" class="nav-logo">Еверест-Тер</a>
-      <a href="#apply" class="nav-btn">Надіслати резюме</a>
-    </div>
-  </nav>
-
   <!-- ════ HERO ════ -->
   <section class="hero">
     <!-- Mountain silhouette (signature element — Everest reference) -->
@@ -827,7 +819,7 @@
       </div>
 
       <div class="hero-pills">
-        <div class="pill">🏠 Повна дистанційна</div>
+        <div class="pill">🏠 Повністю дистанційна</div>
         <div class="pill">⏱ Повна зайнятість</div>
         <div class="pill">✅ Без досвіду</div>
       </div>
@@ -876,7 +868,7 @@
         <div class="c-step s2">
           <div class="c-num">2</div>
           <div>
-            <div class="c-title">Керівник</div>
+            <div class="c-title">Спеціаліст</div>
             <div class="c-desc">Самостійні задачі, більша відповідальність — і вищий дохід</div>
           </div>
         </div>
@@ -905,22 +897,22 @@
         <div class="b-card">
           <div class="b-ico">📈</div>
           <div class="b-title">Дохід від результату</div>
-          <div class="b-desc">Більше результатів — більше шансів на підвищення. Просто і чесно.</div>
+          <div class="b-desc">Більше результатів — більше шансів на підвищення. Просто і чесно</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🏠</div>
-          <div class="b-title">Повна дистанційна</div>
-          <div class="b-desc">Працюєш звідки зручно. Головне — результат, не офіс.</div>
+          <div class="b-title">Повністю дистанційна</div>
+          <div class="b-desc">Працюєте з дому. Головне - результат, а не офіс</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🤝</div>
           <div class="b-title">Команда підтримує</div>
-          <div class="b-desc">Не будеш один на один із задачами — є хто допоможе.</div>
+          <div class="b-desc">Не будеш один на один із задачами — є хто допоможе</div>
         </div>
         <div class="b-card">
           <div class="b-ico">🚀</div>
           <div class="b-title">Без досвіду</div>
-          <div class="b-desc">Важливе бажання вчитися, а не рядки у резюме.</div>
+          <div class="b-desc">Немає досвіду у схожій сфері? Все навчимо. Головне мати бажання</div>
         </div>
       </div>
     </div>
@@ -991,6 +983,10 @@
           <div class="tr-ico">🧠</div>
           <div class="tr-txt">Вміння швидко знаходити потрібну інформацію</div>
         </div>
+        <div class="tr-item">
+          <div class="tr-ico">🧠</div>
+          <div class="tr-txt">Загальний досвід роботи від 1 року</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1024,8 +1020,6 @@
           <button type="submit" class="f-submit" id="submitBtn">Надіслати заявку →</button>
         </form>
 
-        <p class="f-hint">📬 Зв'яжемося протягом 1–2 робочих днів</p>
-
         <div class="success-box" id="successBox">
           <p>✅ Заявку надіслано!<br>Очікуй дзвінка від менеджера.</p>
         </div>
@@ -1033,18 +1027,53 @@
     </div>
   </section>
 
-  <!-- ════ FOOTER ════ -->
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-name">Еверест-Тер</div>
-      <div class="footer-email">everest.ter83@gmail.com</div>
-    </div>
-  </footer>
-
   <script>
+    // ── Telegram-бот для заявок ──
+    // 1) Создай бота через @BotFather в Telegram — получишь токен вида 123456:ABC-DEF...
+    // 2) Напиши боту /start (или добавь в группу/канал, куда должны падать заявки)
+    // 3) Открой в браузере: https://api.telegram.org/bot<ТВОЙ_ТОКЕН>/getUpdates
+    //    и найди там "chat":{"id": ...} — это chat_id. Для группы он будет отрицательным.
+    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN';
+    const TELEGRAM_CHAT_ID = '6463026037';
+
     const form = document.getElementById('appForm');
     const btn = document.getElementById('submitBtn');
     const box = document.getElementById('successBox');
+
+    function sendToTelegram(name, phone, msg) {
+      const text =
+        `🆕 Нова заявка — Помічник керівника (Еверест-Тер)\n\n` +
+        `👤 Ім'я: ${name}\n` +
+        `📞 Телефон: ${phone}\n` +
+        `💬 Про себе: ${msg || '—'}`;
+
+      return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.ok) throw new Error('Telegram: ' + (data.description || 'unknown error'));
+          return data;
+        });
+    }
+
+    function sendToEmail(payload) {
+      return fetch('https://formsubmit.co/ajax/everest.ter83@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!(data.success === 'true' || data.success === true)) throw new Error('FormSubmit fail');
+          return data;
+        });
+    }
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -1066,26 +1095,21 @@
         "_template": "table"
       };
 
-      try {
-        const res = await fetch('https://formsubmit.co/ajax/everest.ter83@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
+      // Шлём в Telegram и на email параллельно. Успеха хотя бы одного канала
+      // достаточно, чтобы показать пользователю "успіх" и не потерять заявку.
+      const results = await Promise.allSettled([
+        sendToTelegram(name, phone, msg),
+        sendToEmail(payload)
+      ]);
 
-        const data = await res.json();
+      const ok = results.some(r => r.status === 'fulfilled');
 
-        if (data.success === 'true' || data.success === true) {
-          form.style.display = 'none';
-          box.classList.add('show');
-          box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          throw new Error('fail');
-        }
-      } catch {
+      if (ok) {
+        form.style.display = 'none';
+        box.classList.add('show');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        console.error('Заявка не надіслана:', results);
         btn.textContent = 'Помилка — спробуй ще раз';
         btn.disabled = false;
       }
