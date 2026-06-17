@@ -256,6 +256,23 @@
             font-size: 0.95em;
         }
 
+        .form-sec {
+        background: var(--primary);
+        padding: 52px 0 40px;
+        position: relative;
+        }
+
+        .form-sec::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: 0;
+        right: 0;
+        height: 44px;
+        background: var(--bg-soft);
+        clip-path: ellipse(54% 100% at 50% 0%);
+        }
+
         .important-note strong {
             color: #ed8936;
         }
