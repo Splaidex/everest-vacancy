@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менеджер з продажу | Еверест-Тер</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #1e3a5f;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge::before {
+            content: '●';
+            color: #ed8936;
+            margin-right: 6px;
+            font-size: 0.8em;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: white;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        h1 span {
+            color: #ed8936;
+            display: block;
+        }
+
+        .hero-description {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05em;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .salary-box {
+            background: #ed8936;
+            color: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .salary-amount {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .salary-period {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: block;
+            background: #ed8936;
+            color: white;
+            padding: 16px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05em;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background: #dd6b20;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(237, 137, 54, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: white;
+            padding: 50px 0;
+            margin-top: -40px;
+            position: relative;
+            z-index: 3;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.2em;
+            color: #1e3a5f;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-label {
+            color: #ed8936;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            color: #1e3a5f;
+            font-size: 2em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .section-description {
+            color: #4a5568;
+            font-size: 1em;
+            margin-bottom: 35px;
+        }
+
+        /* Career Path */
+        .career-steps {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .career-step {
+            display: flex;
+            align-items: start;
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .step-number {
+            background: #ed8936;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #1e3a5f;
+            margin-bottom: 4px;
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+
+        .step-content p {
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        .important-note {
+            background: #fef5e7;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #fbd38d;
+            font-size: 0.95em;
+        }
+
+        .important-note strong {
+            color: #ed8936;
+        }
+
+        /* Benefits Cards */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .benefit-icon {
+            font-size: 2em;
+            margin-bottom: 12px;
+        }
+
+        .benefit-card h3 {
+            color: #1e3a5f;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            color: #4a5568;
+            font-size: 0.9em;
+        }
+
+        /* Duties Grid */
+        .duties-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .duty-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            font-size: 0.95em;
+        }
+
+        .duty-icon {
+            width: 40px;
+            height: 40px;
+            background: #ebf8ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+
+        .why-important {
+            background: #1e3a5f;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .why-important h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .why-important p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* Requirements */
+        .requirements-section {
+            background: #f7fafc;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            font-size: 0.95em;
+        }
+
+        .requirement-icon {
+            width: 36px;
+            height: 36px;
+            background: #fef5e7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        /* Application Form */
+        .apply-section {
+            background: #1e3a5f;
+            color: white;
+            padding: 60px 0;
+        }
+
+        .apply-section h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .apply-description {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 35px;
+            font-size: 1em;
+        }
+
+        .form-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        form {
+            display: grid;
+            gap: 20px;
+        }
+
+        label {
+            color: #1e3a5f;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            font-size: 0.95em;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ed8936;
+        }
+
+        button[type="submit"] {
+            background: #ed8936;
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: #dd6b20;
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            background: #c6f6d5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: #22543d;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .duties-grid, .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <svg class="hero-bg" viewBox="0 0 1200 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="0,400 200,250 400,320 600,200 800,280 1000,180 1200,250 1200,400" fill="#2c5282" opacity="0.6"/>
+            <polygon points="0,400 150,300 350,350 550,250 750,320 950,220 1200,300 1200,400" fill="#2d4a6f" opacity="0.7"/>
+            <polygon points="0,400 100,320 300,380 500,280 700,350 900,260 1100,330 1200,280 1200,400" fill="#1e3a5f" opacity="0.8"/>
+        </svg>
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <div class="badge">ВАКАНСІЯ ВІДКРИТА</div>
+                    <h1>Менеджер <span>з продажу</span></h1>
+                    <p class="hero-description">
+                        Ми — виробник сходів, воріт, ангарів, магазинів, навісів з металу. 
+                        17 років на ринку. Виходимо на новий рівень і шукаємо менеджера, 
+                        який відчуває «клієнта» і хоче рости разом з нами.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">📍 Тернопіль, вул. Гетьмана Мазепи, 10</span>
+                        <span class="tag">⏱ Повна зайнятість</span>
+                        <span class="tag">💼 Досвід від 1 року</span>
+                        <span class="tag">🚗 Права кат. B</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="salary-box">
+                        <div class="salary-amount">Від 25 000 грн / місяць</div>
+                        <div class="salary-period"></div>
+                    </div>
+                    <a href="#apply" class="cta-button">Надіслати резюме →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">17</div>
+                    <div class="stat-label">років на ринку</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1200+</div>
+                    <div class="stat-label">реалізованих проектів</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10-50</div>
+                    <div class="stat-label">співробітників</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Path Section -->
+    <section>
+        <div class="container">
+            <div class="section-label">КАР'ЄРНИЙ ШЛЯХ</div>
+            <h2>Чіткий маршрут зростання</h2>
+            <p class="section-description">
+                Ніякого «подивимось пізніше» — ти знаєш куди рухаєшся з першого дня.
+            </p>
+            
+            <div class="career-steps">
+                <div class="career-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Менеджер з продажу</h3>
+                        <p>Обробка клієнтів, супровід продажів, навчання продукту</p>
+                    </div>
+                </div>
+                <div class="career-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Старший менеджер</h3>
+                        <p>Самостійні великі проекти, робота з ключовими клієнтами</p>
+                    </div>
+                </div>
+                <div class="career-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Керівник відділу продажів</h3>
+                        <p>Управління командою, стратегія розвитку, вищий дохід</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-note">
+                <strong>Важливо:</strong> дохід зростає разом із твоїми результатами — без стелі і без «почекай до наступного року».
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section style="background: #f7fafc;">
+        <div class="container">
+            <div class="section-label">ЩО МИ ПРОПОНУЄМО</div>
+            <h2>Умови роботи</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Дохід від результату</h3>
+                    <p>Робота на результат % + премії, бонуси. Більше результатів — більше дохід.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏢</div>
+                    <h3>Сучасний офіс</h3>
+                    <p>Робота у сучасному офісі з власним робочим місцем.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📑</div>
+                    <h3>Підтримка та навчання</h3>
+                    <p>Допомога від досвідчених колег в період ознайомлення з обов'язками.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✅</div>
+                    <h3>Офіційне працевлаштування</h3>
+                    <p>Стабільність та соціальні гарантії з першого дня.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Duties Section -->
+    <section>
+        <div class="container">
+            <div class="section-label">ОБОВ'ЯЗКИ</div>
+            <h2>Що ти будеш робити</h2>
+            
+            <div class="duties-grid">
+                <div class="duty-item">
+                    <div class="duty-icon">📝</div>
+                    <div>Обробка звернень, отриманих з трафіку (теплі та гарячі клієнти)</div>
+                </div>
+                <div class="duty-item">
+                    <div class="duty-icon">👥</div>
+                    <div>Супровід клієнтів на всіх етапах співпраці</div>
+                </div>
+                <div class="duty-item">
+                    <div class="duty-icon">🤝</div>
+                    <div>Проведення зустрічей та консультацій з потенційними та постійними клієнтами</div>
+                </div>
+            </div>
+
+            <div class="why-important">
+                <h3>Чому це важливо 👇</h3>
+                <p>
+                    Ми не стоїмо на місці і зараз виходимо на новий рівень. Саме тому шукаємо менеджера з продажу, який відчуває «клієнта» і хоче рости разом з нами.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="requirements-section">
+        <div class="container">
+            <div class="section-label">ВИМОГИ</div>
+            <h2>Що для нас важливо</h2>
+            <p class="section-description">
+                Ці якості важливіші за диплом та кількість рядків у CV.
+            </p>
+            
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <div class="requirement-icon">😊</div>
+                    <div>Позитивний, приємний, чесний</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">💬</div>
+                    <div>Вміння легко встановлювати контакт з людьми</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">⚡</div>
+                    <div>Активність та комунікабельність</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">🎯</div>
+                    <div>Націленість на результат</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">🚗</div>
+                    <div>Наявність посвідчення водія категорії «В», навики водіння</div>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-icon">🏆</div>
+                    <div>Досвід роботи від 1 року</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <div class="apply-section" id="apply">
+        <div class="container">
+            <h2>Готовий почати?</h2>
+            <p class="apply-description">
+                Заповни форму — наш менеджер зателефонує та запросить на співбесіду.
+            </p>
+            
+            <div class="form-container">
+                <form id="applicationForm">
+                    <div>
+                        <label for="name">Ім'я *</label>
+                        <input type="text" id="name" name="name" placeholder="Введи своє ім'я" required>
+                    </div>
+                    <div>
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+380_________" required>
+                    </div>
+                    <div>
+                        <label for="about">Про себе (необов'язково)</label>
+                        <textarea id="about" name="about" placeholder="Чому хочеш спробувати цю роль?" rows="4"></textarea>
+                    </div>
+                    <button type="submit">Надіслати заявку →</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ Заявку надіслано!<br>Очікуй дзвінка від менеджера.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
