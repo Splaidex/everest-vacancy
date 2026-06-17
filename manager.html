@@ -684,37 +684,41 @@
         </div>
     </section>
 
-    <!-- Application Form -->
-    <div class="apply-section" id="apply">
-        <div class="container">
-            <h2>Готовий почати?</h2>
-            <p class="apply-description">
-                Заповни форму — наш менеджер зателефонує та запросить на співбесіду.
-            </p>
-            
-            <div class="form-container">
-                <form id="applicationForm">
-                    <div>
-                        <label for="name">Ім'я *</label>
-                        <input type="text" id="name" name="name" placeholder="Введи своє ім'я" required>
-                    </div>
-                    <div>
-                        <label for="phone">Телефон *</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+380_________" required>
-                    </div>
-                    <div>
-                        <label for="about">Про себе (необов'язково)</label>
-                        <textarea id="about" name="about" placeholder="Чому хочеш спробувати цю роль?" rows="4"></textarea>
-                    </div>
-                    <button type="submit">Надіслати заявку →</button>
-                </form>
-                
-                <div class="success-message" id="successMessage">
-                    ✅ Заявку надіслано!<br>Очікуй дзвінка від менеджера.
-                </div>
-            </div>
+    <!-- ════ FORM ════ -->
+  <section class="form-sec" id="apply">
+    <div class="wrap" style="position:relative; z-index:1">
+      <h2 class="form-h">Готовий почати?</h2>
+      <p class="form-sub">Заповни форму — менеджер зателефонує найближчим часом.</p>
+
+      <div class="form-card">
+        <form id="appForm">
+          <div class="f-group">
+            <label class="f-label" for="fname">Ім'я *</label>
+            <input class="f-input" type="text" id="fname" name="Імя" placeholder="Введи своє ім'я" required
+              autocomplete="given-name">
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="fphone">Телефон *</label>
+            <input class="f-input" type="tel" id="fphone" name="Телефон" placeholder="+380__________" required
+              autocomplete="tel">
+          </div>
+          <div class="f-group">
+            <label class="f-label" for="fmsg">
+              Про себе
+              <span class="f-opt">(необов'язково)</span>
+            </label>
+            <textarea class="f-input f-textarea" id="fmsg" name="Про_себе"
+              placeholder="Чому хочеш спробувати цю роль?"></textarea>
+          </div>
+          <button type="submit" class="f-submit" id="submitBtn">Надіслати заявку →</button>
+        </form>
+
+        <div class="success-box" id="successBox">
+          <p>✅ Заявку надіслано!<br>Очікуй дзвінка від менеджера.</p>
         </div>
+      </div>
     </div>
+  </section>
 
     <script>
         document.getElementById('applicationForm').addEventListener('submit', function(e) {
