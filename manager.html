@@ -18,7 +18,7 @@
         }(window, document, 'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1761632008077652');
-        fbq('track', 'Lead');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=1761632008077652&ev=Lead&noscript=1" /></noscript>
@@ -1030,16 +1030,19 @@
     const btn = document.getElementById('submitBtn');
     const box = document.getElementById('successBox');
 
-    function sendToTelegram(name, phone, msg) {
+    function getSource() {
+      const params = new URLSearchParams(window.location.search);
+        return params.get('utm_source') || 'прямий перехід';
+      }
+
+    function sendToTelegram(name, phone, msg, source) {
       const text =
         `✅ Нова заявка — Менеджер з продажу\n\n` +
+        `📍 Джерело: ${source}\n` +
         `👤 Прізвище та ім'я: ${name}\n` +
         `📞 Номер телефон: ${phone}\n` +
         `🖊️ Про себе: ${msg || '—'}`;
 
-      // Без явного Content-Type браузер сам поставит application/x-www-form-urlencoded —
-      // это "простой" запрос, без CORS preflight. С JSON + Content-Type вручную
-      // Telegram у некоторых отдаёт ошибку на preflight (как было у тебя в консоли).
       const params = new URLSearchParams({ chat_id: -1004427594030, text });
 
       return fetch(`https://api.telegram.org/bot8644274101:AAGON9byPlhSsXHHzh1X4xE4lFjAqoU6RD8/sendMessage`, {
@@ -1066,7 +1069,8 @@
       btn.disabled = true;
 
       try {
-        await sendToTelegram(name, phone, msg);
+        await sendToTelegram(name, phone, msg, getSource());
+        fbq('track', 'Lead');
         form.style.display = 'none';
         box.classList.add('show');
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
