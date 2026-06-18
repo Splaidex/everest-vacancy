@@ -21,7 +21,7 @@
     }(window, document, 'script',
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1761632008077652');
-    fbq('track', 'Lead');
+    fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=1761632008077652&ev=Lead&noscript=1" /></noscript>
@@ -1040,8 +1040,14 @@
     const btn = document.getElementById('submitBtn');
     const box = document.getElementById('successBox');
 
+    function getSource() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('utm_source') || 'прямий перехід';
+    }
+
     function sendToTelegram(name, phone, msg) {
       const text =
+       `📍 Джерело: ${source}\n` +
         `✅ Нова заявка — Помічник керівника\n\n` +
         `👤 Прізвище та ім'я: ${name}\n` +
         `📞 Номер телефон: ${phone}\n` +
@@ -1076,7 +1082,8 @@
       btn.disabled = true;
 
       try {
-        await sendToTelegram(name, phone, msg);
+        await sendToTelegram(name, phone, msg, getSource());
+        fbq('track', 'Lead');
         form.style.display = 'none';
         box.classList.add('show');
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
