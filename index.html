@@ -1010,6 +1010,17 @@
               autocomplete="tel">
           </div>
           <div class="f-group">
+            <label class="f-label" for="fage">Вкажіть ваш вік *</label>
+            <select class="f-input" id="fage" name="Вік" required>
+              <option value="" disabled selected>Оберіть діапазон</option>
+              <option value="до 18">до 18</option>
+              <option value="18-21">18-21</option>
+              <option value="22-34">22-34</option>
+              <option value="35-45">35-45</option>
+              <option value="45-65">45-65</option>
+            </select>
+          </div>
+          <div class="f-group">
             <label class="f-label" for="fmsg">
               Про себе
               <span class="f-opt">(необов'язково)</span>
@@ -1050,6 +1061,7 @@
       `✅ Нова заявка — Помічник керівника\n\n` +
       `📍 Джерело: ${source}\n` +
       `👤 Прізвище та ім'я: ${name}\n` +
+      `🎂 Вік: ${age}\n` +
       `📞 Номер телефон: ${phone}\n` +
       `🖊️ Про себе: ${msg || '—'}`;
 
@@ -1074,15 +1086,18 @@
 
       const name = document.getElementById('fname').value.trim();
       const phone = document.getElementById('fphone').value.trim();
+      const age   = document.getElementById('fage').value;
       const msg = document.getElementById('fmsg').value.trim();
 
-      if (!name || !phone) return;
+      if (!name || !phone || !age) return;
 
       btn.textContent = 'Надсилаємо…';
       btn.disabled = true;
 
       try {
-        await sendToTelegram(name, phone, msg, getSource());
+        if (age === '22-34') {
+          await sendToTelegram(name, phone, age, msg, getSource());
+        }
         fbq('track', 'Lead');
         form.style.display = 'none';
         box.classList.add('show');
