@@ -975,7 +975,7 @@
         </div>
         <div class="t-item">
           <div class="t-ico">📸</div>
-          <div class="t-txt">Створювати візуальний контент зі смартфону та координувати команду</div>
+          <div class="t-txt">Створювати візуальний контент з IPhone та координувати команду</div>
         </div>
         <div class="t-item">
           <div class="t-ico">✍️</div>
@@ -1017,7 +1017,7 @@
         </div>
         <div class="tr-item">
           <div class="tr-ico">📱</div>
-          <div class="tr-txt">Вміє зробити зі смартфону інструмент для якісного візуалу</div>
+          <div class="tr-txt">Вміє зробити з IPhone інструмент для якісного візуалу</div>
         </div>
         <div class="tr-item">
           <div class="tr-ico">👁️</div>
@@ -1038,7 +1038,7 @@
   <!-- ════ FORM ════ -->
   <section class="form-sec" id="apply">
     <div class="wrap" style="position:relative; z-index:1">
-      <h2 class="form-h">Хочеш рости разом з нами?</h2>
+      <h2 class="form-h">Для того щоб зростати з нами</h2>
       <p class="form-sub">Залишай заявку — менеджер зателефонує та запросить на співбесіду.</p>
 
       <div class="form-card">
@@ -1054,7 +1054,17 @@
               autocomplete="tel">
           </div>
           <div class="f-group">
-            <label class="f-label" for="fmsg">
+            <label class="f-label" for="fage">Вкажіть ваш вік *</label>
+            <select class="f-input" id="fage" name="Вік" required>
+              <option value="" disabled selected>Оберіть діапазон</option>
+              <option value="до 18">до 18</option>
+              <option value="18-23">18–23</option>
+              <option value="24-28">24–28</option>
+              <option value="29-40">29–40</option>
+              <option value="41-55">41–55</option>
+            </select>
+          </div>
+          <div class="f-group">
               Про себе
               <span class="f-opt">(необов'язково)</span>
             </label>
@@ -1089,12 +1099,13 @@
       return params.get('utm_source') || 'прямий перехід';
     }
 
-    function sendToTelegram(name, phone, msg, source) {
+    function sendToTelegram(name, phone, age, msg, source) {
       const text =
       `✅ Нова заявка — SMM-менеджер\n\n` +
       `📍 Джерело: ${source}\n` +
       `👤 Прізвище та ім'я: ${name}\n` +
       `📞 Номер телефон: ${phone}\n` +
+      `🎂 Вік: ${age}\n` +
       `🖊️ Про себе: ${msg || '—'}`;
 
       // Без явного Content-Type браузер сам поставит application/x-www-form-urlencoded —
@@ -1118,15 +1129,18 @@
 
       const name = document.getElementById('fname').value.trim();
       const phone = document.getElementById('fphone').value.trim();
+      const age = document.getElementById('fage').value;
       const msg = document.getElementById('fmsg').value.trim();
 
-      if (!name || !phone) return;
+      if (!name || !phone || !age) return;
 
       btn.textContent = 'Надсилаємо…';
       btn.disabled = true;
 
       try {
-        await sendToTelegram(name, phone, msg, getSource());
+        if (age === '18-23' || age === '24-28') {
+          await sendToTelegram(name, phone, age, msg, getSource());
+        }
         fbq('track', 'Lead');
         form.style.display = 'none';
         box.classList.add('show');
